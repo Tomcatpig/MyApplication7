@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,39 +11,74 @@
         android:id="@+id/include"
         layout="@layout/title_bar" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/weather_list_item_backg"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include">
 
         <TextView
-            android:id="@+id/weather_city"
-            android:layout_width="match_parent"
+            android:id="@+id/weather_current_temp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="城市：" />
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="13c"
+            android:textSize="50sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/weather_time"
-            android:layout_width="match_parent"
+            android:id="@+id/weather_current_weather"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="时间：" />
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="中雨"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/weather_current_temp" />
 
         <TextView
-            android:id="@+id/weather_temp"
-            android:layout_width="match_parent"
+            android:id="@+id/weather_high_low"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="当前温度：" />
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="高温 14℃/低温 1℃"
+            app:layout_constraintEnd_toEndOf="@+id/weather_current_weather"
+            app:layout_constraintStart_toStartOf="@+id/weather_current_weather"
+            app:layout_constraintTop_toBottomOf="@+id/weather_current_weather" />
 
         <TextView
-            android:id="@+id/weather_current"
-            android:layout_width="match_parent"
+            android:id="@+id/weather_week"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="天气：" />
-    </LinearLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="星期五"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weather_high_low" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/weather_list_forecast"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:divider="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

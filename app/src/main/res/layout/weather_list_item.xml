@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:padding="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/weather_list_item_backg">
+
+        <TextView
+            android:id="@+id/weather_list_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="日期：26"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weather_list_tempHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="最高温："
+            app:layout_constraintStart_toStartOf="@+id/weather_list_data"
+            app:layout_constraintTop_toBottomOf="@+id/weather_list_data" />
+
+        <TextView
+            android:id="@+id/weather_list_tempLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:text="最低温："
+            app:layout_constraintStart_toEndOf="@+id/weather_list_tempHigh"
+            app:layout_constraintTop_toBottomOf="@+id/weather_list_data" />
+
+        <TextView
+            android:id="@+id/weather_list_weatherNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="天气："
+            app:layout_constraintStart_toStartOf="@+id/weather_list_data"
+            app:layout_constraintTop_toBottomOf="@+id/weather_list_tempHigh" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

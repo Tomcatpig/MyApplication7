@@ -60,8 +60,11 @@ public class Weather_net extends BaseActivity {
 
             }
         });
+        //会自动缓存数据，数据被清掉时才会重新请求
+        request.setTag(0x01);
         requestQueue.start();
         requestQueue.add(request);
+        //requestQueue.cancelAll(0x01);
 
     }
 

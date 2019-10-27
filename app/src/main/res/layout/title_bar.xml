@@ -13,8 +13,8 @@
         android:layout_height="32dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
-        android:background="@null"
-        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+        android:background="?android:selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/ic_fanhui" />
 
     <TextView
         android:id="@+id/title_bar_name"

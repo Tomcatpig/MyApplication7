@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
         android:background="@null"
-        app:srcCompat="@drawable/back" />
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     <TextView
         android:id="@+id/title_bar_name"

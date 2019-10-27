@@ -3,6 +3,7 @@
     package="com.example.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
 
     <application
         android:name="com.example.app.MineApplication"
@@ -13,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Weather_net"></activity>
+        <service
+            android:name="com.example.com.example.service.MusicService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".Weather_net" />
 
         <uses-library
             android:name="org.apache.http.legacy"

@@ -2,9 +2,14 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,7 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<User> users = new ArrayList<>();
-    private ActionBar actionBar;
+
     private ListView listView;
     private Button btn_close, btn_aopen, open_web, open_json;
 
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
      * 初始化控件
      */
     private void initView() {
-        actionBar = getSupportActionBar();
+
         btn_aopen = findViewById(R.id.button1);
         btn_close = findViewById(R.id.button2);
         open_web = findViewById(R.id.open_web);
@@ -66,10 +72,11 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.button1:
-                    actionBar.hide();
+                    showNotify();
+
                     break;
                 case R.id.button2:
-                    actionBar.show();
+
                     break;
                 case R.id.open_web:
                     Intent intent = new Intent(MainActivity.this, MyWebView.class);
@@ -79,10 +86,20 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, NetWorkData.class));
                     break;
                 case R.id.open_weather:
-                    startActivity(new Intent(MainActivity.this,Weather_net.class));
+                    startActivity(new Intent(MainActivity.this, Weather_net.class));
                     break;
             }
         }
+    }
+
+    private void showNotify() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this,"default");
+        RemoteViews views = new RemoteViews(getPackageName(), R.layout.music_notification);
+        builder.setContent(views);
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        notificationManager.notify(0x01, builder.build());
+        Log.e("notificationManager",0x10+"id");
     }
 
     private class MyAdapter extends BaseAdapter {

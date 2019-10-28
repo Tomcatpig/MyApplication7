@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,8 +31,7 @@ public abstract class HomeBaseActivity extends AppCompatActivity implements Navi
         addContentView();//设置布局文件
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ImageView  titleBar_openDraw = findViewById(R.id.titleBar_liebiao);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,15 +42,22 @@ public abstract class HomeBaseActivity extends AppCompatActivity implements Navi
             }
         });
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
+
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        titleBar_openDraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             drawer.openDrawer(GravityCompat.START);
+             }
+        });
 
 
     }

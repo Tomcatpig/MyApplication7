@@ -20,16 +20,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+private Button btn1,btn2;
+private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,15 +41,37 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+       drawer = findViewById(R.id.drawer_layout);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        //toggle.syncState();
+
         navigationView.setNavigationItemSelectedListener(this);
+
+        btn1 = findViewById(R.id.open);
+        btn2 = findViewById(R.id.close);
+        btn1.setOnClickListener(new BtnListener() );
+        btn2.setOnClickListener(new BtnListener());
     }
 
+    class  BtnListener implements View.OnClickListener{
+
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.open:
+                    drawer.openDrawer(GravityCompat.START);
+                    break;
+                case R.id.close:
+                    drawer.closeDrawer(GravityCompat.START);
+            }
+        }
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

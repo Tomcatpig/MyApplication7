@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Xpaly</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">我的</string>
+    <string name="title_dashboard">分类</string>
+    <string name="title_notifications">发现</string>
+    <string name="title_mine">我的</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

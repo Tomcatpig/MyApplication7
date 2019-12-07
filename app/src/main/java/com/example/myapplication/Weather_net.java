@@ -45,6 +45,7 @@ public class Weather_net extends BaseActivity {
     }
 
     public void getWeatherInfo() {
+        String meiZu = "http://aider.meizu.com/app/weather/listWeather?cityIds=101010100";
         String url = "http://t.weather.sojson.com/api/weather/city/101250801";
         StringRequest request = new StringRequest(url, new Response.Listener<String>() {
             @Override

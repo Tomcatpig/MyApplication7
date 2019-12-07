@@ -10,13 +10,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.base.BaseActivity;
 import com.example.com.example.adapter.DetilsAdapter;
 import com.example.com.example.bean.Detils;
+import com.example.com.example.bean.UUU;
+import com.example.com.example.utils.MStringUtils;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class NetWorkData extends BaseActivity {
     private ListView class_list;
-    private List<Detils.ResultBean> resultBeanList;
+    private List<UUU.SongListBean> resultBeanList;
     //加载界面
     @Override
     protected void addContentView() {
@@ -32,16 +35,23 @@ public class NetWorkData extends BaseActivity {
 
 
     class_list = findViewById(R.id.class_list);
-    String url="https://weatherapi.market.xiaomi.com/wtr-v2/temp/forecast?cityId=101010100";
+    //String url="https://www.mingrisoft.com/Index/API/getAllCourse/rows";
+       String url="http://tingapi.ting.baidu.com/v1/restserver/ting?size=20&type=2&callback=cb_list&_t=1468380543284&format=json&method=baidu.ting.billboard.billList";
         StringRequest request =new  StringRequest(url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
             //请求数据成功调用此方法
-                Log.e("response",response);
-               //Detils detils = new Gson().fromJson(response,Detils.class);
-               //resultBeanList = detils.getResult();
-               //class_list.setAdapter(new DetilsAdapter(resultBeanList,NetWorkData.this));
+               String string = MStringUtils.getStringBeingToEnd("(",")",response);
+               UUU uuu = new Gson().fromJson(string,UUU.class);
+               for (UUU.SongListBean songListBean:uuu.getSong_list()){
+                   Log.i("title",songListBean.getTitle());
+               }
+
+
+
+                resultBeanList = uuu.getSong_list();
+               class_list.setAdapter(new DetilsAdapter(resultBeanList,NetWorkData.this));
 
 
             }

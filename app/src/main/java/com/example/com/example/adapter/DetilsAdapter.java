@@ -10,16 +10,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.com.example.bean.Detils;
+import com.example.com.example.bean.UUU;
 import com.example.myapplication.R;
 
 import java.util.List;
 
 public class DetilsAdapter extends BaseAdapter {
-    private List<Detils.ResultBean> resultBeanList;
+    private List<UUU.SongListBean> resultBeanList;
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public DetilsAdapter(List<Detils.ResultBean> resultBeanList, Context context) {
+    public DetilsAdapter(List<UUU.SongListBean> resultBeanList, Context context) {
         this.resultBeanList = resultBeanList;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
@@ -55,11 +56,11 @@ public class DetilsAdapter extends BaseAdapter {
 
             holder = (ViewHolder) convertView.getTag();
         }
-        Detils.ResultBean resultBean = resultBeanList.get(position);
-        holder.show_title.setText(resultBean.getCourse_name());
-        holder.show_description.setText(resultBean.getClass_hour());
-        holder.show_teacher.setText(resultBean.getMain_teacher());
-        Glide.with(context).load(resultBean.getCover()).into(holder.show_pic);
+        UUU.SongListBean resultBean = resultBeanList.get(position);
+        holder.show_title.setText(resultBean.getTitle());
+        holder.show_description.setText(resultBean.getAuthor());
+        holder.show_teacher.setText(resultBean.getArtist_name());
+        Glide.with(context).load(resultBean.getPic_small()).into(holder.show_pic);
         return convertView;
     }
 

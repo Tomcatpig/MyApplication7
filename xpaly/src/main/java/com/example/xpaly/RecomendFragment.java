@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.example.xpaly.com.xpaly.adapter.RVAdapter;
+import com.example.xpaly.com.xpaly.fragment.HotAnimeFragment;
+import com.example.xpaly.com.xpaly.fragment.HotMovieFragment;
+import com.example.xpaly.com.xpaly.fragment.HotTVFragment;
+import com.example.xpaly.com.xpaly.fragment.HotVarietyShowFragment;
 import com.example.xpaly.com.xpaly.fragment.PianDanFragment;
 import com.example.xpaly.com.xpaly.fragment.TestFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -78,16 +82,19 @@ public class RecomendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_recomend, container, false);
+        View view = inflater.inflate(R.layout.fragment_recomend, container, false);
         TabLayout tabLayout = view.findViewById(R.id.recommend_tabLayout);
         ViewPager viewPager = view.findViewById(R.id.recommend_fragment_viewPage);
+        viewPager.setOffscreenPageLimit(4);
         tabLayout.setupWithViewPager(viewPager);
-        List<Fragment> fragments =new ArrayList<>();
+        List<Fragment> fragments = new ArrayList<>();
         fragments.add(new PianDanFragment());
-        for (int i= 0;i<4;i++){
-            fragments.add(new TestFragment());
-        }
-        viewPager.setAdapter(new RVAdapter(getFragmentManager(),1,fragments));
+        fragments.add(new HotTVFragment());
+        fragments.add(new HotMovieFragment());
+        fragments.add(new HotVarietyShowFragment());
+        fragments.add(new HotAnimeFragment());
+
+        viewPager.setAdapter(new RVAdapter(getFragmentManager(), 1, fragments));
 
         return view;
     }

@@ -1,8 +1,6 @@
 package com.example.xpaly.com.xpaly.adapter;
 
 import android.content.Context;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.xpaly.R;
 import com.example.xpaly.com.xpaly.pojo.PianDan;
-import com.example.xpaly.com.xpaly.pojo.User;
+
 import com.example.xpaly.com.xpaly.utils.MStringUtils;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -45,7 +43,7 @@ public class PianDanAdapter extends RecyclerView.Adapter<PianDanAdapter.ViewHold
         Glide.with(mContext).load(pianDanList.get(position).getCover_url1()).into(holder.imageView);
         holder.textView_title.setText(pianDanList.get(position).getName());
         holder.textView_description.setText(pianDanList.get(position).getDescription().trim());
-        holder.textView_time.setText(MStringUtils.dateFormat(1, pianDanList.get(position).getCreated_on()/1000000));
+        holder.textView_time.setText("更新时间 " + MStringUtils.dateFormat(1, pianDanList.get(position).getUpdated_on() / 1000000));
         //
 
     }

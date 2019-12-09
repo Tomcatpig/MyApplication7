@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/film_classification_recyclerView_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="1dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="1dp"
+        fancy:fb_defaultColor="#00000000"
+        fancy:fb_radius="15dp"
+        fancy:fb_text="标签"
+        fancy:fb_textColor="@color/webGray"
+        fancy:fb_textSize="12sp" />
+</LinearLayout>

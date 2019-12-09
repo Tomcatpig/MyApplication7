@@ -7,23 +7,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.example.xpaly.R;
-import com.example.xpaly.com.xpaly.adapter.PianDanAdapter;
+import com.example.xpaly.com.xpaly.adapter.HotMovieAdapter;
+import com.example.xpaly.com.xpaly.adapter.HotVarietyShowAdapter;
 import com.example.xpaly.com.xpaly.application.MyApplication;
-import com.example.xpaly.com.xpaly.pojo.PianDan;
-import com.example.xpaly.com.xpaly.pojo.User;
+import com.example.xpaly.com.xpaly.pojo.HotMovieBean;
+import com.example.xpaly.com.xpaly.pojo.HotVarietyShowBean;
 import com.example.xpaly.com.xpaly.utils.ToastShow;
 import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -31,7 +28,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,12 +38,12 @@ import okhttp3.Response;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PianDanFragment.OnFragmentInteractionListener} interface
+ * {@link HotVarietyShowFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PianDanFragment#newInstance} factory method to
+ * Use the {@link HotVarietyShowFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PianDanFragment extends Fragment {
+public class HotVarietyShowFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,39 +55,16 @@ public class PianDanFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PianDanFragment() {
+    public HotVarietyShowFragment() {
         // Required empty public constructor
     }
 
-    private List<String> user = new ArrayList<>();
-    private boolean isVisibleToUser;
-    private boolean isloadData;
-    private boolean isViewInitiated;
     private String TAG = getClass().getName();
-    private View rootView;
-    private List<PianDan.DataBean.ListBean> pianDanList = new ArrayList<>();
-    private PianDanAdapter pianDanAdapter;
+    private HotVarietyShowAdapter hotVarietyShowAdapter;
     private XRecyclerView xRecyclerView;
-    private int offset=0;//数据下一次请求的位置
-
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PianDanFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PianDanFragment newInstance(String param1, String param2) {
-        PianDanFragment fragment = new PianDanFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private View rootView;
+    private int offset = 0;
+    private List<HotVarietyShowBean.DataBean> hotVarietyShowBeanList = new ArrayList<>();
 
     // handler处理
     private Handler handler = new Handler() {
@@ -100,73 +73,60 @@ public class PianDanFragment extends Fragment {
             super.handleMessage(msg);
             if (msg.what == 0x01) {
                 String result = (String) msg.obj;
-                PianDan pianDan1 = new Gson().fromJson(result, PianDan.class);
-                if (offset==0){
-                    pianDanList = pianDan1.getData().getList();
-                    pianDanAdapter.setPianDanList(pianDanList);
-                    pianDanAdapter.notifyDataSetChanged();
+                HotVarietyShowBean hotMovieBean = new Gson().fromJson(result, HotVarietyShowBean.class);
+                if (offset == 0) {
+                    hotVarietyShowBeanList = hotMovieBean.getData();
+                    hotVarietyShowAdapter.setHotVarietyShowBeanList(hotVarietyShowBeanList);
+                    hotVarietyShowAdapter.notifyDataSetChanged();
                     xRecyclerView.refreshComplete();
-                }else {
-                    if (offset<pianDan1.getData().getTotal()){
-                        pianDanList.addAll(pianDan1.getData().getList());
-                        pianDanAdapter.setPianDanList(pianDanList);
-                        pianDanAdapter.notifyDataSetChanged();
-                    }else {
-                        ToastShow.shortToast(MyApplication.getContext(), "没有更多啦！");
+                } else {
+                    try {
+                        hotVarietyShowBeanList.addAll(hotMovieBean.getData());
+                        hotVarietyShowAdapter.setHotVarietyShowBeanList(hotVarietyShowBeanList);
+                    } catch (Exception e) {
+                        Log.e("接收", e.getMessage());
                     }
 
+                    hotVarietyShowAdapter.notifyDataSetChanged();
                     xRecyclerView.loadMoreComplete();
                 }
 
 
+                Log.e("接收", "ok");
 
-                Log.e("接收", pianDan1.getMsg());
-
-            }else if (msg.what==0x02){
+            } else if (msg.what == 0x02) {
                 ToastShow.shortToast(MyApplication.getContext(), "数据加载失败！");
                 xRecyclerView.refreshComplete();
             }
         }
     };
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-        this.isViewInitiated = true;
-
-
-    }
 
     /**
      * 初始化要使用的控件
      */
     private void initView() {
-        xRecyclerView = rootView.findViewById(R.id.piandan_fragment_recyclerView);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
+        xRecyclerView = rootView.findViewById(R.id.HotVarietyShow_fragment_recyclerView);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
         xRecyclerView.setLayoutManager(layoutManager);
         xRecyclerView.setPullRefreshEnabled(true);
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                pianDanList.clear();
-                offset=0;
+                hotVarietyShowBeanList.clear();
+                offset = 0;
                 getData(0);
             }
 
             @Override
             public void onLoadMore() {
-            offset=offset+10;
-            getData(offset);
+                offset = offset + 10;
+                getData(offset);
             }
         });
-        xRecyclerView.refresh();
-        pianDanAdapter = new PianDanAdapter(pianDanList, getContext());
-        xRecyclerView.setAdapter(pianDanAdapter);
+        hotVarietyShowAdapter = new HotVarietyShowAdapter(hotVarietyShowBeanList, getContext());
+        xRecyclerView.setAdapter(hotVarietyShowAdapter);
+        //xRecyclerView.refresh();//没写完
     }
 
     /**
@@ -178,7 +138,7 @@ public class PianDanFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://api-xl9-ssl.xunlei.com/sl/xlppc.playlist.api/v1/list?uid=572443284&offset=" + offset + "&limit=10";
+                String url = "https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags=%E7%BB%BC%E8%89%BA&start=" + offset;
                 OkHttpClient okHttpClient = new OkHttpClient();
                 final Request request = new Request.Builder()
                         .url(url)
@@ -190,7 +150,7 @@ public class PianDanFragment extends Fragment {
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ");
                         Message message = handler.obtainMessage();
-                        message.what=0x02;
+                        message.what = 0x02;
                         handler.sendMessage(message);
 
                     }
@@ -209,14 +169,41 @@ public class PianDanFragment extends Fragment {
         }).start();
     }
 
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment HotVarietyShowFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static HotVarietyShowFragment newInstance(String param1, String param2) {
+        HotVarietyShowFragment fragment = new HotVarietyShowFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_pian_dan, container, false);
-        this.rootView = view;//根布局的view
-        initView();//初始化控件
-        return view;
+        rootView = inflater.inflate(R.layout.fragment_hot_variety_show, container, false);
+        initView();
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

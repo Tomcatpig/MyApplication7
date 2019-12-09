@@ -1,6 +1,7 @@
 package com.example.xpaly.com.xpaly.adapter;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ public class RVAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        Log.e("Tag","fragment "+position);
         return fragments.get(position);
     }
 

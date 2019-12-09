@@ -6,6 +6,10 @@ import android.os.Bundle;
 import com.example.xpaly.com.xpaly.adapter.HomeViewPageAdapter;
 import com.example.xpaly.com.xpaly.fragment.CatalogFragment;
 import com.example.xpaly.com.xpaly.fragment.DiscoveryFragment;
+import com.example.xpaly.com.xpaly.fragment.HotAnimeFragment;
+import com.example.xpaly.com.xpaly.fragment.HotMovieFragment;
+import com.example.xpaly.com.xpaly.fragment.HotTVFragment;
+import com.example.xpaly.com.xpaly.fragment.HotVarietyShowFragment;
 import com.example.xpaly.com.xpaly.fragment.MineFragment;
 import com.example.xpaly.com.xpaly.fragment.PianDanFragment;
 import com.example.xpaly.com.xpaly.fragment.TestFragment;
@@ -30,7 +34,11 @@ public class HomeActivity extends AppCompatActivity implements TestFragment.OnFr
         CatalogFragment.OnFragmentInteractionListener,
         DiscoveryFragment.OnFragmentInteractionListener,
         MineFragment.OnFragmentInteractionListener,
-        PianDanFragment.OnFragmentInteractionListener {
+        PianDanFragment.OnFragmentInteractionListener,
+        HotTVFragment.OnFragmentInteractionListener ,
+        HotMovieFragment.OnFragmentInteractionListener ,
+        HotVarietyShowFragment.OnFragmentInteractionListener,
+        HotAnimeFragment.OnFragmentInteractionListener {
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPager viewPager;
 

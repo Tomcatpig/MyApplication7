@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.xpaly.R;
+import com.example.xpaly.com.xpaly.adapter.FilmClassificationAdapter;
+
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +43,13 @@ public class CatalogFragment extends Fragment {
     public CatalogFragment() {
         // Required empty public constructor
     }
+
+    private View rootView;
+    private RecyclerView movieForm;
+    private RecyclerView movieType;
+    private RecyclerView movieArea;
+    private RecyclerView movieTime;
+
 
     /**
      * Use this factory method to create a new instance of
@@ -69,11 +83,45 @@ public class CatalogFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_catalog, container, false);
-        TextView title= view.findViewById(R.id.actionbar_title_left);
+        this.rootView = inflater.inflate(R.layout.fragment_catalog, container, false);
+        initView();//初始化控件
+        return rootView;
+    }
+
+    private void initView() {
+        //设置actionbar的中间标题
+        TextView title = rootView.findViewById(R.id.actionbar_title_center);
         title.setText("分类");
         title.setVisibility(View.VISIBLE);
-        return view;
+        //初始化布局管理器
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getContext());
+        linearLayoutManager1.setOrientation(LinearLayoutManager.HORIZONTAL);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
+        linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
+        LinearLayoutManager linearLayoutManager3 = new LinearLayoutManager(getContext());
+        linearLayoutManager3.setOrientation(LinearLayoutManager.HORIZONTAL);
+        //初始化
+        movieForm = rootView.findViewById(R.id.CatalogFragment_RecyclerView_movieForm);
+        movieType = rootView.findViewById(R.id.CatalogFragment_RecyclerView_movieType);
+        movieArea = rootView.findViewById(R.id.CatalogFragment_RecyclerView_movieArea);
+        movieTime = rootView.findViewById(R.id.CatalogFragment_RecyclerView_movieTime);
+        //必须设置最大缓存数不然会有选中状态错乱的bug
+        movieType.setItemViewCacheSize(30);
+        movieArea.setItemViewCacheSize(30);
+        movieTime.setItemViewCacheSize(30);
+        //设置布局管理器不能复用日了狗了
+        movieForm.setLayoutManager(linearLayoutManager);
+        movieType.setLayoutManager(linearLayoutManager1);
+        movieArea.setLayoutManager(linearLayoutManager2);
+        movieTime.setLayoutManager(linearLayoutManager3);
+        //设置数据类型
+        movieForm.setAdapter(new FilmClassificationAdapter(0));
+        movieType.setAdapter(new FilmClassificationAdapter(1));
+        movieArea.setAdapter(new FilmClassificationAdapter(2));
+        movieTime.setAdapter(new FilmClassificationAdapter(3));
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

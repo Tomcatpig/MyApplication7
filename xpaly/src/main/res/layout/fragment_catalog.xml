@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".com.xpaly.fragment.CatalogFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -59,6 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/CatalogFragment_RecyclerView_movieArea" />
         <View
+            android:id="@+id/CatalogFragment_RecyclerView_split_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
@@ -67,7 +67,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/CatalogFragment_RecyclerView_movieTime"/>
 
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/CatalogFragment_RecyclerView_loadMore"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CatalogFragment_RecyclerView_split_line"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- TODO: Update blank fragment layout -->
+
 
 
 </FrameLayout>

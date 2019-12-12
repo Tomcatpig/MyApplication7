@@ -7,16 +7,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp">
 
 
     <TextView
         android:id="@+id/activity_article_details_rv_item_singleLine"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:lineSpacingExtra="3dp"
+        android:lineSpacingMultiplier="1.2"
         android:text="TextView"
-        android:textSize="16sp"
         android:textColor="@color/bgBlack"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

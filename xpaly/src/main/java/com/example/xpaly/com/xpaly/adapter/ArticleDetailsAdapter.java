@@ -36,6 +36,17 @@ public class ArticleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.mContext = mContext;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (articlDetailsBeanList.get(position).getTag() == ArticlDetailsBean.TYPE_CENTENCE) {
+            return ArticlDetailsBean.TYPE_CENTENCE;
+
+        } else {
+            return ArticlDetailsBean.TYPE_IMAGE;
+        }
+
+    }
+
     @NonNull
     @Override
 
@@ -67,8 +78,6 @@ public class ArticleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private void setDataImage(ViewHolderImageView holder, int position) {
         RequestOptions options = RequestOptions.bitmapTransform(new RoundedCornersTransformation2(5, 0, RoundedCornersTransformation2.CornerType.ALL, RoundedCornersTransformation2.ScaleType.CENTER_CROP));
-
-        holder.imageView.setVisibility(View.VISIBLE);
         Glide.with(mContext)
                 .asBitmap()
                 .thumbnail(0.3f)

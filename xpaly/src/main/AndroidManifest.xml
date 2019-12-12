@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".com.xpaly.activity.ArticleDetailsActivity"></activity>
+        <activity android:name=".com.xpaly.activity.PianDianDetailsActivity"></activity>
+        <activity android:name=".com.xpaly.activity.ArticleDetailsActivity" />
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" />

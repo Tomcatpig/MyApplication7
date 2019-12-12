@@ -57,7 +57,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
             getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         }
 
-        ToastShow.shortToast(this, getIntent().getStringExtra("articleUrl"));
+        ToastShow.shortToast(this, "加载中！！！");
         initView();
 
     }

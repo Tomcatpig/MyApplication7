@@ -1,6 +1,8 @@
 package com.example.xpaly.com.xpaly.fragment;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.xpaly.R;
+import com.example.xpaly.com.xpaly.activity.PianDianDetailsActivity;
 import com.example.xpaly.com.xpaly.adapter.PianDanAdapter;
 import com.example.xpaly.com.xpaly.application.MyApplication;
 import com.example.xpaly.com.xpaly.pojo.PianDan;
@@ -166,6 +169,16 @@ public class PianDanFragment extends Fragment {
         });
         xRecyclerView.refresh();
         pianDanAdapter = new PianDanAdapter(pianDanList, getContext());
+        pianDanAdapter.setOnItemClickListener(new PianDanAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+
+                ToastShow.shortToast(MyApplication.getContext(),"item:"+position);
+                Intent intent =new Intent(getActivity(), PianDianDetailsActivity.class);
+                intent.putExtra("id",pianDanList.get(position).getId());
+                startActivity(intent);
+            }
+        });
         xRecyclerView.setAdapter(pianDanAdapter);
     }
 

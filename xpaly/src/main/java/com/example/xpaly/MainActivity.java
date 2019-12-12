@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.xpaly.com.xpaly.pojo.ArticlDetailsBean;
+import com.example.xpaly.com.xpaly.pojo.PianDianDetailsUrlJson;
 import com.example.xpaly.com.xpaly.utils.Analysisbypull;
 import com.example.xpaly.com.xpaly.utils.MStringUtils;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.return_homeActivity:
+                PianDianDetailsUrlJson json = new PianDianDetailsUrlJson("121212",0,15,0,"");
+                Log.e("json",json.toString());
                 startActivity(new Intent(MainActivity.this, HomeActivity.class));
                 finish();
                 //testGetData();

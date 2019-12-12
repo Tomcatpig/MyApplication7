@@ -25,7 +25,17 @@ import java.util.List;
  * @描述
  */
 public class PianDanAdapter extends RecyclerView.Adapter<PianDanAdapter.ViewHolder> {
+    //第一步 定义接口
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
 
+    private PianDanAdapter.OnItemClickListener mListener;
+
+    //第二步， 写一个公共的方法
+    public void setOnItemClickListener(PianDanAdapter.OnItemClickListener listener) {
+        this.mListener = listener;
+    }
     private List<PianDan.DataBean.ListBean> pianDanList;
     private Context mContext = null;
 
@@ -39,12 +49,20 @@ public class PianDanAdapter extends RecyclerView.Adapter<PianDanAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Glide.with(mContext).load(pianDanList.get(position).getCover_url1()).into(holder.imageView);
         holder.textView_title.setText(pianDanList.get(position).getName());
         holder.textView_description.setText(pianDanList.get(position).getDescription().trim());
         holder.textView_time.setText("更新时间 " + MStringUtils.dateFormat(1, pianDanList.get(position).getUpdated_on() / 1000000));
-        //
+        //设置点击事件
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener!=null){
+                    mListener.onClick(position);
+                }
+            }
+        });
 
     }
 

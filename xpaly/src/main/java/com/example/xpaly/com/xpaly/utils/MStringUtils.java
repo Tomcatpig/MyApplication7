@@ -3,8 +3,15 @@ package com.example.xpaly.com.xpaly.utils;
 import android.util.Log;
 
 import com.example.xpaly.com.xpaly.pojo.ArticlDetailsBean;
+import com.example.xpaly.com.xpaly.pojo.SearchResultBean;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +77,7 @@ public class MStringUtils {
 
     public static List<ArticlDetailsBean> getArticlDetails(String html) {
         List<ArticlDetailsBean> articlDetailsBeanList = new ArrayList<>();
-      //  List<String> stringList = new ArrayList<String>();
+        //  List<String> stringList = new ArrayList<String>();
         String[] strings = html.split("</p>");
 
         for (int z = 0; z < strings.length; z++) {
@@ -82,10 +89,12 @@ public class MStringUtils {
                 String string2 = strings[z].substring(0, endIndex);
 
                 //System.out.println(strings[z].substring(endIndex));
-             //   stringList.add(strings[z].substring(endIndex));
+                //   stringList.add(strings[z].substring(endIndex));
 
-                ArticlDetailsBean articlDetailsBean = new ArticlDetailsBean(strings[z].substring(endIndex), 1);
-                articlDetailsBeanList.add(articlDetailsBean);
+                if (!strings[z].substring(endIndex).equals("")) {
+                    ArticlDetailsBean articlDetailsBean = new ArticlDetailsBean(strings[z].substring(endIndex), 1);
+                    articlDetailsBeanList.add(articlDetailsBean);
+                }
 
 
                 String[] string2List = string2.split("src=\"");
@@ -100,9 +109,12 @@ public class MStringUtils {
 
                         //System.out.println(stringHttp.substring(0, endIndex2));
 
-                     //   stringList.add(stringHttp.substring(0, endIndex2));
-                        ArticlDetailsBean articlDetailsBean2 = new ArticlDetailsBean(stringHttp.substring(0, endIndex2), 2);
-                        articlDetailsBeanList.add(articlDetailsBean2);
+                        //   stringList.add(stringHttp.substring(0, endIndex2));
+                        if (!stringHttp.substring(0, endIndex2).equals("")) {
+                            ArticlDetailsBean articlDetailsBean2 = new ArticlDetailsBean(stringHttp.substring(0, endIndex2), 2);
+                            articlDetailsBeanList.add(articlDetailsBean2);
+                        }
+
 
                     }
 
@@ -113,9 +125,12 @@ public class MStringUtils {
                 int endIndex = strings[z].lastIndexOf(">") + 1;
 
                 //System.out.println(strings[z].substring(endIndex));
-            //    stringList.add(strings[z].substring(endIndex));
-                ArticlDetailsBean articlDetailsBean = new ArticlDetailsBean(strings[z].substring(endIndex), 1);
-                articlDetailsBeanList.add(articlDetailsBean);
+                //    stringList.add(strings[z].substring(endIndex));
+                if (!strings[z].substring(endIndex).equals("")) {
+                    ArticlDetailsBean articlDetailsBean = new ArticlDetailsBean(strings[z].substring(endIndex), 1);
+                    articlDetailsBeanList.add(articlDetailsBean);
+                }
+
             }
 
             //System.out.println(strings[z]);
@@ -124,5 +139,43 @@ public class MStringUtils {
         return articlDetailsBeanList;
 
 
+    }
+
+    public static String intChange2Str(int number) {
+        String str;
+        if (number <= 0) {
+            str = "";
+        } else if (number < 10000) {
+            str = number + "";
+        } else {
+            double d = (double) number;
+            double num = d / 10000;//1.将数字转换成以万为单位的数字
+
+            BigDecimal b = new BigDecimal(num);
+            double f1 = b.setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();//2.转换后的数字四舍五入保留小数点后一位;
+            str = f1 + "万";
+        }
+        return str;
+    }
+
+
+    public static List<SearchResultBean> getHttpLink(String htmlText) {
+        List<SearchResultBean> searchResultBeanList = new ArrayList<>();
+        String headString = "https://wolongzy.net";//结果没有域名，手动添加
+        Document doc = Jsoup.parse(htmlText);
+
+
+        Elements links = doc.select("a.videoName"); // 带有href属性的a元素
+
+        for (Element element : links) {
+
+            String urlString = element.attr("href");
+            String nameString = element.text();
+            SearchResultBean searchResultBean = new SearchResultBean(nameString,headString+urlString);
+            //String urlNameString = element.text();
+            searchResultBeanList.add(searchResultBean);
+            Log.e("test", "name" + nameString + "url" + ":" + headString + urlString);
+        }
+        return searchResultBeanList;
     }
 }

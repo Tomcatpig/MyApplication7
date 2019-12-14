@@ -1,6 +1,7 @@
 package com.example.xpaly;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import com.example.xpaly.com.xpaly.activity.SearchMovieActivity;
 import com.example.xpaly.com.xpaly.adapter.RVAdapter;
 import com.example.xpaly.com.xpaly.fragment.HotAnimeFragment;
 import com.example.xpaly.com.xpaly.fragment.HotMovieFragment;
@@ -23,6 +25,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import mehdi.sakout.fancybuttons.FancyButton;
 
 
 /**
@@ -42,7 +46,7 @@ public class RecomendFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private View rootView;
     private OnFragmentInteractionListener mListener;
 
     public RecomendFragment() {
@@ -82,23 +86,32 @@ public class RecomendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_recomend, container, false);
-        TabLayout tabLayout = view.findViewById(R.id.recommend_tabLayout);
-        ViewPager viewPager = view.findViewById(R.id.recommend_fragment_viewPage);
-        viewPager.setOffscreenPageLimit(4);
-        tabLayout.setupWithViewPager(viewPager);
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new PianDanFragment());
-        fragments.add(new HotTVFragment());
-        fragments.add(new HotMovieFragment());
-        fragments.add(new HotVarietyShowFragment());
-        fragments.add(new HotAnimeFragment());
-
-        viewPager.setAdapter(new RVAdapter(getFragmentManager(), 1, fragments));
-
-        return view;
+        rootView = inflater.inflate(R.layout.fragment_recomend, container, false);
+        initView();
+        return rootView;
     }
+public void  initView(){
+    FancyButton button = rootView.findViewById(R.id.recommend_searchButton);
+    //搜索按钮设置点击事件
+    button.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getActivity(), SearchMovieActivity.class));
+        }
+    });
+    TabLayout tabLayout = rootView.findViewById(R.id.recommend_tabLayout);
+    ViewPager viewPager = rootView.findViewById(R.id.recommend_fragment_viewPage);
+    viewPager.setOffscreenPageLimit(4);
+    tabLayout.setupWithViewPager(viewPager);
+    List<Fragment> fragments = new ArrayList<>();
+    fragments.add(new PianDanFragment());
+    fragments.add(new HotTVFragment());
+    fragments.add(new HotMovieFragment());
+    fragments.add(new HotVarietyShowFragment());
+    fragments.add(new HotAnimeFragment());
 
+    viewPager.setAdapter(new RVAdapter(getFragmentManager(), 1, fragments));
+}
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

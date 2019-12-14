@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?><!-->片单详情recyclerView的item布局!-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <ImageView
+        android:id="@+id/activity_pian_dian_details_rv_item_movieCover"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_musical_note" />
+
+    <TextView
+        android:id="@+id/activity_pian_dian_details_rv_item_movieName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="电影名字"
+        android:textColor="@color/bgBlack"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/activity_pian_dian_details_rv_item_movieCover" />
+
+    <TextView
+        android:id="@+id/activity_pian_dian_details_rv_item_movieCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="类型"
+        android:textColor="@color/webGray"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/activity_pian_dian_details_rv_item_movieName" />
+
+    <TextView
+        android:id="@+id/activity_pian_dian_details_rv_item_movieActors"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="演员"
+        android:textColor="@color/webGray"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/activity_pian_dian_details_rv_item_movieCategories" />
+
+    <TextView
+        android:id="@+id/activity_pian_dian_details_rv_item_movieAreas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="中国"
+        android:textColor="@color/webGray"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/activity_pian_dian_details_rv_item_movieActors" />
+
+    <TextView
+        android:id="@+id/activity_pian_dian_details_rv_item_movieRelease_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="2018-09-01"
+        android:textColor="@color/webGray"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/activity_pian_dian_details_rv_item_movieAreas" />
+</androidx.constraintlayout.widget.ConstraintLayout>

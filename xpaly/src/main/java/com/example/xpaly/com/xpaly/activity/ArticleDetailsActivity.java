@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.example.xpaly.R;
 import com.example.xpaly.com.xpaly.adapter.ArticleDetailsAdapter;
@@ -54,7 +55,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_details);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         ToastShow.shortToast(this, "加载中！！！");
@@ -112,5 +113,16 @@ public class ArticleDetailsActivity extends AppCompatActivity {
                 });
             }
         }).start();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -13,8 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".com.xpaly.activity.PianDianDetailsActivity"></activity>
-        <activity android:name=".com.xpaly.activity.ArticleDetailsActivity" />
+        <activity android:name=".com.xpaly.activity.MovieDetailsActivity"></activity>
+        <activity android:name=".com.xpaly.activity.SearchMovieActivity" />
+        <activity
+            android:name=".com.xpaly.activity.PianDianDetailsActivity"
+            android:label="片单详情" />
+        <activity
+            android:name=".com.xpaly.activity.ArticleDetailsActivity"
+            android:label="文章详情" />
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" />

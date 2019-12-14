@@ -19,10 +19,12 @@ import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.xpaly.R;
 import com.example.xpaly.com.xpaly.activity.PianDianDetailsActivity;
+import com.example.xpaly.com.xpaly.activity.SearchMovieActivity;
 import com.example.xpaly.com.xpaly.adapter.PianDanAdapter;
 import com.example.xpaly.com.xpaly.application.MyApplication;
 import com.example.xpaly.com.xpaly.pojo.PianDan;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import mehdi.sakout.fancybuttons.FancyButton;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -75,7 +78,7 @@ public class PianDanFragment extends Fragment {
     private List<PianDan.DataBean.ListBean> pianDanList = new ArrayList<>();
     private PianDanAdapter pianDanAdapter;
     private XRecyclerView xRecyclerView;
-    private int offset=0;//数据下一次请求的位置
+    private int offset = 0;//数据下一次请求的位置
 
 
     /**
@@ -104,17 +107,17 @@ public class PianDanFragment extends Fragment {
             if (msg.what == 0x01) {
                 String result = (String) msg.obj;
                 PianDan pianDan1 = new Gson().fromJson(result, PianDan.class);
-                if (offset==0){
+                if (offset == 0) {
                     pianDanList = pianDan1.getData().getList();
                     pianDanAdapter.setPianDanList(pianDanList);
                     pianDanAdapter.notifyDataSetChanged();
                     xRecyclerView.refreshComplete();
-                }else {
-                    if (offset<pianDan1.getData().getTotal()){
+                } else {
+                    if (offset < pianDan1.getData().getTotal()) {
                         pianDanList.addAll(pianDan1.getData().getList());
                         pianDanAdapter.setPianDanList(pianDanList);
                         pianDanAdapter.notifyDataSetChanged();
-                    }else {
+                    } else {
                         ToastShow.shortToast(MyApplication.getContext(), "没有更多啦！");
                     }
 
@@ -122,10 +125,9 @@ public class PianDanFragment extends Fragment {
                 }
 
 
-
                 Log.e("接收", pianDan1.getMsg());
 
-            }else if (msg.what==0x02){
+            } else if (msg.what == 0x02) {
                 ToastShow.shortToast(MyApplication.getContext(), "数据加载失败！");
                 xRecyclerView.refreshComplete();
             }
@@ -149,6 +151,7 @@ public class PianDanFragment extends Fragment {
      * 初始化要使用的控件
      */
     private void initView() {
+
         xRecyclerView = rootView.findViewById(R.id.piandan_fragment_recyclerView);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         xRecyclerView.setLayoutManager(layoutManager);
@@ -157,14 +160,14 @@ public class PianDanFragment extends Fragment {
             @Override
             public void onRefresh() {
                 pianDanList.clear();
-                offset=0;
+                offset = 0;
                 getData(0);
             }
 
             @Override
             public void onLoadMore() {
-            offset=offset+10;
-            getData(offset);
+                offset = offset + 10;
+                getData(offset);
             }
         });
         xRecyclerView.refresh();
@@ -173,9 +176,9 @@ public class PianDanFragment extends Fragment {
             @Override
             public void onClick(int position) {
 
-                ToastShow.shortToast(MyApplication.getContext(),"item:"+position);
-                Intent intent =new Intent(getActivity(), PianDianDetailsActivity.class);
-                intent.putExtra("id",pianDanList.get(position).getId());
+                ToastShow.shortToast(MyApplication.getContext(), "item:" + position);
+                Intent intent = new Intent(getActivity(), PianDianDetailsActivity.class);
+                intent.putExtra("id", pianDanList.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -203,7 +206,7 @@ public class PianDanFragment extends Fragment {
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ");
                         Message message = handler.obtainMessage();
-                        message.what=0x02;
+                        message.what = 0x02;
                         handler.sendMessage(message);
 
                     }

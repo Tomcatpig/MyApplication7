@@ -242,7 +242,7 @@ public class CatalogFragment extends Fragment {
         movieTime.setAdapter(new FilmClassificationAdapter(3));
         hotMovieAdapter = new HotMovieAdapter(hotMovieBeanList, getActivity());
         loadMore.setAdapter(hotMovieAdapter);
-        loadMore.refresh();
+        //loadMore.refresh();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

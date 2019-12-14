@@ -1,6 +1,7 @@
 package com.example.xpaly.com.xpaly.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,12 +79,12 @@ public class ArticleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private void setDataImage(ViewHolderImageView holder, int position) {
         RequestOptions options = RequestOptions.bitmapTransform(new RoundedCornersTransformation2(5, 0, RoundedCornersTransformation2.CornerType.ALL, RoundedCornersTransformation2.ScaleType.CENTER_CROP));
+
         Glide.with(mContext)
-                .asBitmap()
-                .thumbnail(0.3f)
                 .load(articlDetailsBeanList.get(position).getWord())
                 .apply(options)
                 .into(holder.imageView);
+      //  Log.e("imageURl",articlDetailsBeanList.get(position).getWord());
     }
 
     private void setDataText(ViewHolderTextView holder, int position) {

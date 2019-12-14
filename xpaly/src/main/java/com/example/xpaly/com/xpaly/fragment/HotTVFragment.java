@@ -167,7 +167,7 @@ public class HotTVFragment extends Fragment {
         });
         hotTVProgramAdapter = new HotTVProgramAdapter(getContext(), hotTVProgramList);
         xRecyclerView.setAdapter(hotTVProgramAdapter);
-        xRecyclerView.refresh();
+        //xRecyclerView.refresh();
     }
 
     /**

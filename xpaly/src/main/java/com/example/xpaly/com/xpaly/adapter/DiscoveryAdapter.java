@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.xpaly.R;
 import com.example.xpaly.com.xpaly.pojo.RecommendMovieBean;
+import com.example.xpaly.com.xpaly.utils.MStringUtils;
 import com.example.xpaly.com.xpaly.utils.RoundedCornersTransformation2;
 
 import java.util.ArrayList;
@@ -62,10 +63,10 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         int size = recommendMovieList.get(position).getCinecism().getImage_list().size();
         RecommendMovieBean.DataBean.ArrayBean.MediaInfoBean movie = recommendMovieList.get(position).getMedia_info();
         if (position % 5 == 0 || size == 1 || size == 2 || size == 0 || movie == null) {
-            Log.e("type", "getItemViewType: " + 1);
+           // Log.e("type", "getItemViewType: " + 1);
             return 1;
         } else if (size == 3 && position % 3 == 0) {
-            Log.e("type", "getItemViewType: " + 2);
+           // Log.e("type", "getItemViewType: " + 2);
             return 2;
         } else {
             return 3;
@@ -132,6 +133,8 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.textView_title.setText(recommendMovieList.get(position).getCinecism().getTitle());
         holder.textView_movieName.setText(recommendMovieList.get(position).getMedia_info().getName());
         holder.textView_movieTime.setText("上映:" + recommendMovieList.get(position).getMedia_info().getRelease_time());
+        holder.textView_like.setText( MStringUtils.intChange2Str(recommendMovieList.get(position).getCinecism().getFav_count()));
+        holder.textView_watch.setText(MStringUtils.intChange2Str(recommendMovieList.get(position).getCinecism().getShow_count()));
     }
 
 
@@ -159,6 +162,8 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         holderFirst.textView_title.setText(recommendMovieList.get(position).getCinecism().getTitle());
         holderFirst.textView_description.setText(recommendMovieList.get(position).getCinecism().getSummary());
+        holderFirst.textView_like.setText( MStringUtils.intChange2Str(recommendMovieList.get(position).getCinecism().getFav_count()));
+        holderFirst.textView_watch.setText(MStringUtils.intChange2Str(recommendMovieList.get(position).getCinecism().getShow_count()));
     }
 
     private void setDataSecond(ViewHolderSecond holderSecond, int position) {
@@ -178,6 +183,9 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 .into(holderSecond.imageView3);
         holderSecond.textView_title.setText(recommendMovieList.get(position).getCinecism().getTitle());
         holderSecond.textView_description.setText(recommendMovieList.get(position).getCinecism().getSummary());
+        holderSecond.textView_like.setText( MStringUtils.intChange2Str(recommendMovieList.get(position).getCinecism().getFav_count()));
+        holderSecond.textView_watch.setText(MStringUtils.intChange2Str(recommendMovieList.get(position).getCinecism().getShow_count()));
+
     }
 
 
@@ -192,6 +200,8 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ImageView imageView3;
         TextView textView_title;
         TextView textView_description;
+        TextView textView_like;
+        TextView textView_watch;
 
         private ViewHolderSecond(View view) {
             super(view);
@@ -200,6 +210,8 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             imageView3 = view.findViewById(R.id.fragment_discovery_recyclerview_image3);
             textView_title = view.findViewById(R.id.fragment_discovery_recyclerview_title);
             textView_description = view.findViewById(R.id.fragment_discovery_recyclerview_description);
+            textView_like = view.findViewById(R.id.fragment_discovery_recyclerview_like);
+            textView_watch = view.findViewById(R.id.fragment_discovery_recyclerview_watch);
         }
     }
 
@@ -207,12 +219,16 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ImageView imageView1;
         TextView textView_title;
         TextView textView_description;
+        TextView textView_like;
+        TextView textView_watch;
 
         private ViewHolderFirst(View view) {
             super(view);
             imageView1 = view.findViewById(R.id.fragment_discovery_recyclerview_image1);
             textView_title = view.findViewById(R.id.fragment_discovery_recyclerview_title);
             textView_description = view.findViewById(R.id.fragment_discovery_recyclerview_description);
+            textView_like = view.findViewById(R.id.fragment_discovery_recyclerview_like);
+            textView_watch = view.findViewById(R.id.fragment_discovery_recyclerview_watch);
         }
     }
 
@@ -222,6 +238,8 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView textView_title;
         TextView textView_movieName;
         TextView textView_movieTime;
+        TextView textView_like;
+        TextView textView_watch;
 
         private ViewHolderThird(View view) {
             super(view);
@@ -230,6 +248,8 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             textView_title = view.findViewById(R.id.fragment_discovery_recyclerview_title);
             textView_movieName = view.findViewById(R.id.fragment_discovery_recycsasalerview_movieTitle);
             textView_movieTime = view.findViewById(R.id.fragment_discovery_recyclerview_movieTime);
+            textView_like = view.findViewById(R.id.fragment_discovery_recyclerview_like);
+            textView_watch = view.findViewById(R.id.fragment_discovery_recyclerview_watch);
         }
     }
 }

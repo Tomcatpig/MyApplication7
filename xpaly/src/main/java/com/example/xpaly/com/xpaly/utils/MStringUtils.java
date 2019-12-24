@@ -2,6 +2,7 @@ package com.example.xpaly.com.xpaly.utils;
 
 import android.util.Log;
 
+import com.example.xpaly.com.xpaly.enums.WebLink;
 import com.example.xpaly.com.xpaly.pojo.ArticlDetailsBean;
 import com.example.xpaly.com.xpaly.pojo.SearchResultBean;
 
@@ -171,11 +172,95 @@ public class MStringUtils {
 
             String urlString = element.attr("href");
             String nameString = element.text();
-            SearchResultBean searchResultBean = new SearchResultBean(nameString,headString+urlString);
+            SearchResultBean searchResultBean = new SearchResultBean(nameString, headString + urlString);
             //String urlNameString = element.text();
             searchResultBeanList.add(searchResultBean);
             Log.e("test", "name" + nameString + "url" + ":" + headString + urlString);
         }
         return searchResultBeanList;
+    }
+
+
+    public static List<SearchResultBean> getMovieLink(String htmlText) {
+        List<SearchResultBean> searchResultBeanList = new ArrayList<>();
+        Document doc = Jsoup.parse(htmlText);
+
+        Elements links = doc.select("a[href][title]"); // 带有href属性的a元素
+
+        for (Element element : links) {
+            String urlString = element.attr("href");
+            //String nameString = element.attr("title");
+            //String urlNameString = element.text();
+            if (urlString.contains("http") && !urlString.contains("m3u8")) {
+                SearchResultBean searchResultBean = new SearchResultBean(element.attr("title"), urlString);
+                searchResultBeanList.add(searchResultBean);
+            }
+
+
+        }
+        return searchResultBeanList;
+    }
+
+    public static List<SearchResultBean> getHttpLinkType2(String urlType, String htmlText) {
+        List<SearchResultBean> searchResultBeanList = new ArrayList<>();
+        String headString = "";
+        if (urlType.equals("2")) {
+            headString = WebLink.SU_BO_ZI_YUAN_HOST;
+        } else if (urlType.equals("3")) {
+            headString = WebLink.OK_ZI_YUAN_HOST;
+        }else if (urlType.equals("4")){
+            headString = WebLink.KU_BO_ZI_YUAN_HOST;
+        }
+        Document doc = Jsoup.parse(htmlText);
+
+
+        Elements links = doc.select("span.xing_vb4").select("a[href]"); // 带有href属性的a元素
+
+        for (Element element : links) {
+            String urlString = element.attr("href");
+            String nameString = element.text();
+            SearchResultBean searchResultBean = new SearchResultBean(nameString, headString + urlString);
+            searchResultBeanList.add(searchResultBean);
+            Log.e("name:" + nameString, "url" + urlString);
+        }
+        return searchResultBeanList;
+    }
+
+
+    public static List<SearchResultBean> getMovieLinkType2(String htmlText) {
+        List<SearchResultBean> searchResultBeanList = new ArrayList<>();
+
+        Document doc = Jsoup.parse(htmlText);
+
+
+        Elements links = doc.select("li"); // 带有href属性的a元素
+
+        for (Element element : links) {
+            String urlString = element.text();
+            if (urlString.contains("$") && !urlString.contains("m3u8")) {
+                int index = urlString.indexOf("$");
+                SearchResultBean searchResultBean = new SearchResultBean(urlString.substring(0, index), urlString.substring(index + 1));
+                searchResultBeanList.add(searchResultBean);
+                System.out.println(urlString.substring(0, index) + urlString.substring(index + 1));
+            }
+
+
+        }
+        return searchResultBeanList;
+    }
+
+    public static String getSearchUrl(String type, String keyWord) {
+
+        if (type.equals("1")) {
+            return WebLink.WO_LONG_ZI_YUAN + keyWord;
+        } else if (type.equals("2")) {
+            return WebLink.SU_BO_ZI_YUAN + keyWord;
+        } else if (type.equals("3")) {
+            return WebLink.OK_ZI_YUAN_ + keyWord;
+        } else if (type.equals("4")) {
+            return WebLink.KU_BO_ZI_YUAN+keyWord;
+        } else {
+            return null;
+        }
     }
 }

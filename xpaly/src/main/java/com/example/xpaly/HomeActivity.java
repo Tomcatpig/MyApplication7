@@ -13,6 +13,7 @@ import com.example.xpaly.com.xpaly.fragment.HotVarietyShowFragment;
 import com.example.xpaly.com.xpaly.fragment.MineFragment;
 import com.example.xpaly.com.xpaly.fragment.PianDanFragment;
 import com.example.xpaly.com.xpaly.fragment.TestFragment;
+import com.example.xpaly.com.xpaly.utils.ToastShow;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements TestFragment.OnFr
         HotAnimeFragment.OnFragmentInteractionListener {
     private List<Fragment> fragments = new ArrayList<>();
     private ViewPager viewPager;
+    private long exitTime;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -99,5 +102,24 @@ public class HomeActivity extends AppCompatActivity implements TestFragment.OnFr
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if(keyCode==event.KEYCODE_BACK){
+            isExitSystem();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void isExitSystem() {
+        if (System.currentTimeMillis()-exitTime<2000){
+            finish();
+        }else {
+            exitTime =System.currentTimeMillis();
+            ToastShow.shortToast(this,"再按一次退出");
+        }
     }
 }

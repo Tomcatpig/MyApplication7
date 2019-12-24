@@ -1,6 +1,7 @@
 package com.example.xpaly.com.xpaly.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,10 +10,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.xpaly.R;
+import com.example.xpaly.com.xpaly.activity.WebResourcesSettingsActivity;
+import com.example.xpaly.com.xpaly.application.MyApplication;
+import com.example.xpaly.com.xpaly.ui.ItemSetting;
+import com.example.xpaly.com.xpaly.utils.ToastShow;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +38,8 @@ public class MineFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,13 +78,38 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mine, container, false);
-        TextView title = view.findViewById(R.id.actionbar_title_center);
+        rootView = inflater.inflate(R.layout.fragment_mine, container, false);
+        initView();
+        return rootView;
+    }
+
+    public void initView() {
+        TextView title = rootView.findViewById(R.id.actionbar_title_center);
         title.setText("我的");
         title.setVisibility(View.VISIBLE);
-        ImageView imageView = view.findViewById(R.id.actionbar_image);
+        ImageView imageView = rootView.findViewById(R.id.actionbar_image);
         imageView.setVisibility(View.VISIBLE);
-        return view;
+
+        ItemSetting fragment_mine_testX5Core = rootView.findViewById(R.id.fragment_mine_testX5Core);
+        fragment_mine_testX5Core.setmListener(new ItemSetting.OnItemClickListener() {
+            @Override
+            public void onClick() {
+                if (MyApplication.isAddX5){
+                    ToastShow.shortToast(getActivity(),"x5内核已加载");
+                }else {
+                    ToastShow.shortToast(getActivity(),"x5内核未加载");
+                }
+            }
+        });
+
+        ItemSetting webSetting = rootView.findViewById(R.id.fragment_mine_webResourcesSetting);
+        webSetting.setmListener(new ItemSetting.OnItemClickListener() {
+            @Override
+            public void onClick() {
+                startActivity(new Intent(getActivity(), WebResourcesSettingsActivity.class));
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

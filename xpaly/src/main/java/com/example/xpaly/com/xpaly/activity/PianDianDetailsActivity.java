@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -43,7 +44,7 @@ public class PianDianDetailsActivity extends AppCompatActivity {
     private int offset = 0;
     private XRecyclerView xRecyclerView;
     private String TAG = getClass().getName();
-    private int tatal;
+    private int total;
 
     private String id;
     // handler处理
@@ -54,8 +55,8 @@ public class PianDianDetailsActivity extends AppCompatActivity {
             if (msg.what == 0x01) {
                 String result = (String) msg.obj;
                 PianDianSingleDetails pianDianSingleDetails = new Gson().fromJson(result, PianDianSingleDetails.class);
-                tatal = pianDianSingleDetails.getData().getTotal();
-                Log.e("total", tatal + "");
+                total = pianDianSingleDetails.getData().getTotal();
+                Log.e("total", total + "");
                 if (offset == 0) {
                     pianDanDetailsList = pianDianSingleDetails.getData().getList();
                     pianDianDetailsAdapter.setPianDanDetailsList(pianDanDetailsList);
@@ -148,6 +149,14 @@ public class PianDianDetailsActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(XRecyclerView.VERTICAL);
         xRecyclerView.setLayoutManager(layoutManager);//设置布局管理器
+        pianDianDetailsAdapter.setOnItemClickListener(new PianDianDetailsAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(PianDianDetailsActivity.this,SearchMovieActivity.class);
+                intent.putExtra("movieName",pianDanDetailsList.get(position).getName());
+                startActivity(intent);
+            }
+        });
         xRecyclerView.setAdapter(pianDianDetailsAdapter);
         //设置刷新和加载监听
         xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -161,7 +170,7 @@ public class PianDianDetailsActivity extends AppCompatActivity {
             @Override
             public void onLoadMore() {
                 offset = offset + 10;
-                if (offset < tatal) {
+                if (offset < total) {
                     getData(id, offset);
                 } else {
                     xRecyclerView.loadMoreComplete();

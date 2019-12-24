@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary"
-    >
+    android:background="@color/colorPrimary">
 
     <ImageButton
         android:id="@+id/search_actionbar_goBack"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,8 +26,8 @@
         android:background="@drawable/search_actionbar_edittext"
         android:drawableLeft="@drawable/ic_sousuo_edittext"
         android:ems="10"
+        android:hint="搜索剧名"
         android:inputType="textPersonName"
-        android:text="搜索"
         android:textColor="@color/webGray"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,14 +37,14 @@
 
     <ImageButton
         android:id="@+id/search_actionbar_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginEnd="32dp"
-        android:background="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_youtube_searched_for_black_24dp" />
+        app:srcCompat="@drawable/ic_sousuo_m" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

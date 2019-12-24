@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="settingItem">
+        <attr name="imageSrc" format="integer"/>//左侧图标
+        <attr name="textLeft" format="string"/>//左TextView的内容
+        <attr name="textSizeLeft" format="dimension"/>//左TextView的字体大小
+        <attr name="textColorLeft" format="color"/>//左TextView的字体颜色
+        <attr name="textRight" format="string"/>//右TextView内容
+        <attr name="textSizeRight" format="dimension"/>//左TextView的字体大小
+        <attr name="textColorRight" format="color"/>//左TextView的字体颜色
+        <attr name="isShowDividingLine" format="boolean"/>//是否展示底部分割线
+    </declare-styleable>
+
+    
+</resources>

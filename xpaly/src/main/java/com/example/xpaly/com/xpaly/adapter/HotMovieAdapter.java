@@ -22,6 +22,18 @@ import java.util.List;
  * @描述
  */
 public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHolder> {
+    //第一步 定义接口
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
+
+    private HotMovieAdapter.OnItemClickListener mListener;
+
+    //第二步， 写一个公共的方法
+    public void setOnItemClickListener(HotMovieAdapter.OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
     private List<HotMovieBean.DataBean> hotMovieBeanList;
     private Context context;
 
@@ -46,10 +58,18 @@ public class HotMovieAdapter extends RecyclerView.Adapter<HotMovieAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Glide.with(context).load(hotMovieBeanList.get(position).getCover()).into(holder.imageView_cover);
         holder.textView_title.setText(hotMovieBeanList.get(position).getTitle());
         holder.textView_rate.setText("评分"+hotMovieBeanList.get(position).getRate());
+        if (mListener!=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onClick(position);
+                }
+            });
+        }
     }
 
 

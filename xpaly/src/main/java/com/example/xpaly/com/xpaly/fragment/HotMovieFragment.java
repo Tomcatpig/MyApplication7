@@ -1,6 +1,7 @@
 package com.example.xpaly.com.xpaly.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.xpaly.R;
+import com.example.xpaly.com.xpaly.activity.SearchMovieActivity;
 import com.example.xpaly.com.xpaly.adapter.HotMovieAdapter;
 import com.example.xpaly.com.xpaly.application.MyApplication;
 import com.example.xpaly.com.xpaly.pojo.HotMovieBean;
@@ -118,11 +120,19 @@ public class HotMovieFragment extends Fragment {
 
             @Override
             public void onLoadMore() {
-                offset = offset + 10;
+                offset = offset + 20;
                 getData(offset);
             }
         });
         hotMovieAdapter = new HotMovieAdapter(hotMovieBeanList, getContext());
+        hotMovieAdapter.setOnItemClickListener(new HotMovieAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), SearchMovieActivity.class);
+                intent.putExtra("movieName",hotMovieBeanList.get(position).getTitle());
+                startActivity(intent);
+            }
+        });
         xRecyclerView.setAdapter(hotMovieAdapter);
         //xRecyclerView.refresh();//没写完
     }
@@ -136,7 +146,7 @@ public class HotMovieFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags=%E7%94%B5%E5%BD%B1&start=" + offset;
+                String url = "https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags=%E7%94%B5%E5%BD%B1&limit=20&start=" + offset;
                 OkHttpClient okHttpClient = new OkHttpClient();
                 final Request request = new Request.Builder()
                         .url(url)

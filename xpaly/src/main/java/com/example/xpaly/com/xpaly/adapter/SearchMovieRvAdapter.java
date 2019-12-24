@@ -27,7 +27,7 @@ public class SearchMovieRvAdapter extends RecyclerView.Adapter<SearchMovieRvAdap
         void onClick(int position);
     }
 
-    private DiscoveryAdapter.OnItemClickListener mListener;
+    private SearchMovieRvAdapter.OnItemClickListener mListener;
 
     //第二步， 写一个公共的方法
 
@@ -44,7 +44,7 @@ public class SearchMovieRvAdapter extends RecyclerView.Adapter<SearchMovieRvAdap
         this.resultBeanList = resultBeanList;
     }
 
-    public void setmListener(DiscoveryAdapter.OnItemClickListener mListener) {
+    public void setmListener(SearchMovieRvAdapter.OnItemClickListener mListener) {
         this.mListener = mListener;
     }
 

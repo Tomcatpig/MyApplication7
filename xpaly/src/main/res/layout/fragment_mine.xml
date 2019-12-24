@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgGray"
     tools:context=".com.xpaly.fragment.MineFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,7 +12,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-     <include layout="@layout/actionbar_mine"/>
+        <include
+            android:id="@+id/include4"
+            layout="@layout/actionbar_mine" />
+
+
+        <com.example.xpaly.com.xpaly.ui.ItemSetting
+            android:id="@+id/fragment_mine_webResourcesSetting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:imageSrc="@drawable/ic_shezhi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include4"
+            app:textLeft="设置"
+            app:textRight="更多" />
+
+        <com.example.xpaly.com.xpaly.ui.ItemSetting
+            android:id="@+id/fragment_mine_testX5Core"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:imageSrc="@drawable/ic_ceshi"
+            app:isShowDividingLine="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_mine_webResourcesSetting"
+            app:textLeft="测试x5内核"
+            app:textRight="">
+
+        </com.example.xpaly.com.xpaly.ui.ItemSetting>
+
+        <com.example.xpaly.com.xpaly.ui.ItemSetting
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:textLeft="关于"
+            app:imageSrc="@drawable/ic_guanyu"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_mine_testX5Core"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

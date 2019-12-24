@@ -17,17 +17,18 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:padding="8dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            >
+            app:layout_scrollFlags="scroll|enterAlways">
 
-            <mehdi.sakout.fancybuttons.FancyButton
+            <Button
                 android:id="@+id/recommend_searchButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:fb_defaultColor="@color/bgWhite"
-                app:fb_radius="5dp"
-                app:fb_text="搜索"
-                app:fb_textColor="@color/webGray" />
+                android:background="@drawable/ripple_white_button"
+                android:text="搜索观看更多！"
+                android:textColor="@color/webGray"
+                android:textSize="14sp"
+                android:gravity="center_horizontal|center_vertical|left"
+                android:drawableLeft="@drawable/ic_sousuo_edittext"/>
         </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout
@@ -41,42 +42,39 @@
             app:tabSelectedTextColor="@color/bgWhite"
             app:tabTextColor="@color/bgGray">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-            android:text="片单" />
+                android:text="片单" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="热剧" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="热剧" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="电影" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电影" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="综艺" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="综艺" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="动漫" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="动漫" />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/recommend_fragment_viewPage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-          />
-
-
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/recommend_fragment_viewPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

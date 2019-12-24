@@ -22,6 +22,18 @@ import java.util.List;
  * @描述 综艺列表的适配器
  */
 public class HotVarietyShowAdapter extends RecyclerView.Adapter<HotVarietyShowAdapter.ViewHolder> {
+    //第一步 定义接口
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
+
+    private HotVarietyShowAdapter.OnItemClickListener mListener;
+
+    //第二步， 写一个公共的方法
+    public void setOnItemClickListener(HotVarietyShowAdapter.OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
     private List<HotVarietyShowBean.DataBean> hotVarietyShowBeanList;
     private Context context;
 
@@ -46,10 +58,18 @@ public class HotVarietyShowAdapter extends RecyclerView.Adapter<HotVarietyShowAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotVarietyShowAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HotVarietyShowAdapter.ViewHolder holder, final int position) {
         Glide.with(context).load(hotVarietyShowBeanList.get(position).getCover()).into(holder.imageView_cover);
         holder.textView_title.setText(hotVarietyShowBeanList.get(position).getTitle());
         holder.textView_rate.setText("评分"+hotVarietyShowBeanList.get(position).getRate());
+        if (mListener!=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onClick(position);
+                }
+            });
+        }
     }
 
     @Override

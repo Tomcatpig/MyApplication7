@@ -7,13 +7,13 @@ android {
 
     defaultConfig {
         applicationId "com.example.xpaly"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        ndk { abiFilters "armeabi" }
         vectorDrawables.useSupportLibrary = true
 
     }
@@ -29,13 +29,13 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'org.jsoup:jsoup:1.12.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation 'androidx.preference:preference:1.1.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
-    implementation("com.squareup.okhttp3:okhttp:4.2.1")
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
     implementation 'com.jcodecraeer:xrecyclerview:1.6.0'
     implementation 'com.github.medyo:fancybuttons:1.9.1'
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -47,4 +47,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation files('libs/tbs_sdk_thirdapp_v4.3.0.1148_43697_sharewithdownloadwithfile_withoutGame_obfs_20190805_175505.jar')
 }

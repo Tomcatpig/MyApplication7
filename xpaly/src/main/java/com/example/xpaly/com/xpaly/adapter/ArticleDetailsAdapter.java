@@ -26,6 +26,8 @@ import java.util.List;
  * @描述 文章详情页面
  */
 public class ArticleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
     List<ArticlDetailsBean> articlDetailsBeanList = new ArrayList<>();
     private Context mContext;
 

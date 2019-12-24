@@ -31,10 +31,10 @@ public class PianDianDetailsAdapter extends RecyclerView.Adapter<PianDianDetails
         void onClick(int position);
     }
 
-    private DiscoveryAdapter.OnItemClickListener mListener;
+    private PianDianDetailsAdapter.OnItemClickListener mListener;
 
     //第二步， 写一个公共的方法
-    public void setOnItemClickListener(DiscoveryAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(PianDianDetailsAdapter.OnItemClickListener listener) {
         this.mListener = listener;
     }
 
@@ -64,7 +64,7 @@ public class PianDianDetailsAdapter extends RecyclerView.Adapter<PianDianDetails
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         RequestOptions options = RequestOptions.bitmapTransform(new RoundedCornersTransformation2(5, 0, RoundedCornersTransformation2.CornerType.ALL, RoundedCornersTransformation2.ScaleType.CENTER_CROP));
         Glide.with(context)
                 .asBitmap()
@@ -78,6 +78,14 @@ public class PianDianDetailsAdapter extends RecyclerView.Adapter<PianDianDetails
         holder.movieAreas.setText(pianDanDetailsList.get(position).getAreas());
         holder.movieActors.setText(pianDanDetailsList.get(position).getActors());
         holder.movieCategories.setText(pianDanDetailsList.get(position).getCategories());
+        if (mListener!=null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onClick(position);
+                }
+            });
+        }
 
     }
 

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,28 +19,27 @@ import android.widget.ImageButton;
 import com.example.xpaly.R;
 import com.example.xpaly.com.xpaly.adapter.SearchMovieRvAdapter;
 import com.example.xpaly.com.xpaly.application.MyApplication;
-import com.example.xpaly.com.xpaly.pojo.PianDianDetailsUrlJson;
-import com.example.xpaly.com.xpaly.pojo.PianDianSingleDetails;
+import com.example.xpaly.com.xpaly.enums.WebLink;
 import com.example.xpaly.com.xpaly.pojo.SearchResultBean;
 import com.example.xpaly.com.xpaly.utils.MStringUtils;
+import com.example.xpaly.com.xpaly.utils.SharedPreferencesUtils;
 import com.example.xpaly.com.xpaly.utils.ToastShow;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class SearchMovieActivity extends AppCompatActivity {
     private SearchMovieRvAdapter searchMovieRvAdapter;
     private String TAG = getClass().getName();
-    private String keyWord="";
+    private String keyWord = "";
+    private List<SearchResultBean> searchResultBeanList;
+    private String searchType = "1";
     // handler处理
     private Handler handler = new Handler() {
         @Override
@@ -47,7 +47,12 @@ public class SearchMovieActivity extends AppCompatActivity {
             super.handleMessage(msg);
             String result = (String) msg.obj;
             if (msg.what == 0x01) {
-                List<SearchResultBean> searchResultBeanList = MStringUtils.getHttpLink(result);
+                if (searchType.equals("1")){
+                    searchResultBeanList = MStringUtils.getHttpLink(result);
+                }else if (searchType.equals("2")||searchType.equals("3")||searchType.equals("4")){
+                    searchResultBeanList = MStringUtils.getHttpLinkType2(searchType,result);
+                }
+
                 searchMovieRvAdapter.setResultBeanList(searchResultBeanList);
                 searchMovieRvAdapter.notifyDataSetChanged();
                 SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.activity_search_movie_swipeRefresh);
@@ -67,14 +72,19 @@ public class SearchMovieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_movie);
         getSupportActionBar().hide();
         initView();
+
     }
 
     public void initView() {
+
+        SharedPreferencesUtils.setFileName("com.example.xpaly_preferences");
+        searchType = (String) SharedPreferencesUtils.get(this, "reply", "1");
+
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.activity_search_movie_swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getData(keyWord);
+                getData(MStringUtils.getSearchUrl(searchType,keyWord));
             }
         });
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#03A9F4"));
@@ -89,7 +99,28 @@ public class SearchMovieActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.activity_search_movie_recyclerView);
         recyclerView.setLayoutManager(layoutManager);
         searchMovieRvAdapter = new SearchMovieRvAdapter();
+        searchMovieRvAdapter.setmListener(new SearchMovieRvAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(SearchMovieActivity.this, MovieDetailsActivity.class);
+                intent.putExtra("movieUrl", searchResultBeanList.get(position).getMoviewUrl());
+                intent.putExtra("searchType", searchType);
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(searchMovieRvAdapter);
+        //判断是否来自其他页面的为搜索
+        if (getIntent().getStringExtra("movieName") != null) {
+            if (!getIntent().getStringExtra("movieName").equals("")) {
+                swipeRefreshLayout = findViewById(R.id.activity_search_movie_swipeRefresh);
+                swipeRefreshLayout.setRefreshing(true);
+
+                keyWord = getIntent().getStringExtra("movieName");
+                getData(MStringUtils.getSearchUrl(searchType,keyWord));
+
+            }
+        }
+
     }
 
 
@@ -102,10 +133,19 @@ public class SearchMovieActivity extends AppCompatActivity {
                     break;
                 case R.id.search_actionbar_confirm:
                     SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.activity_search_movie_swipeRefresh);
-                    swipeRefreshLayout.setRefreshing(true);
+
                     EditText editText = findViewById(R.id.search_actionbar_editText);
-                    keyWord=editText.getText().toString().trim();
-                    getData(editText.getText().toString().trim());
+
+                    keyWord = editText.getText().toString().trim();
+                    if (!keyWord.equals("")) {
+                        swipeRefreshLayout.setRefreshing(true);
+                        getData(MStringUtils.getSearchUrl(searchType,keyWord));
+
+
+                    } else {
+                        ToastShow.shortToast(MyApplication.getContext(), "请输入关键词！");
+                    }
+
                     break;
                 default:
                     break;
@@ -117,18 +157,17 @@ public class SearchMovieActivity extends AppCompatActivity {
     /**
      * 网络请求 参数下一次数据的的位置 请求结果post到handler
      *
-     * @param searchWord
+     * @param searchUrl
      */
-    private void getData(final String searchWord) {
+    private void getData(final String searchUrl) {
 
-        Log.e("string", searchWord);
+        Log.e("string", searchUrl);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "https://wolongzy.net/search.html?searchword=" + searchWord;
                 OkHttpClient okHttpClient = new OkHttpClient();
                 final Request request = new Request.Builder()
-                        .url(url)
+                        .url(searchUrl)
                         .get()//默认就是GET请求，可以不写
                         .build();
                 Call call = okHttpClient.newCall(request);

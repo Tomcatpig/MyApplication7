@@ -23,6 +23,19 @@ import java.util.List;
  * @描述
  */
 public class HotTVProgramAdapter extends RecyclerView.Adapter<HotTVProgramAdapter.ViewHolder> {
+
+    //第一步 定义接口
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
+
+    private HotTVProgramAdapter.OnItemClickListener mListener;
+
+    //第二步， 写一个公共的方法
+    public void setOnItemClickListener(HotTVProgramAdapter.OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
     private List<HotTVProgram.DataBean> hotTVProgramList = new ArrayList<>();
     private Context context;
 
@@ -49,10 +62,18 @@ public class HotTVProgramAdapter extends RecyclerView.Adapter<HotTVProgramAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Glide.with(context).load(hotTVProgramList.get(position).getCover()).into(holder.imageView_cover);
         holder.textView_title.setText(hotTVProgramList.get(position).getTitle());
-        holder.textView_rate.setText("评分"+hotTVProgramList.get(position).getRate());
+        holder.textView_rate.setText("评分" + hotTVProgramList.get(position).getRate());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onClick(position);
+                }
+            }
+        });
 
     }
 

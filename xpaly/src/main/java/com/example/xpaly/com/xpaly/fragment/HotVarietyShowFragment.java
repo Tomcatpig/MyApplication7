@@ -1,6 +1,7 @@
 package com.example.xpaly.com.xpaly.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.xpaly.R;
+import com.example.xpaly.com.xpaly.activity.SearchMovieActivity;
 import com.example.xpaly.com.xpaly.adapter.HotMovieAdapter;
 import com.example.xpaly.com.xpaly.adapter.HotVarietyShowAdapter;
 import com.example.xpaly.com.xpaly.application.MyApplication;
@@ -120,11 +122,19 @@ public class HotVarietyShowFragment extends Fragment {
 
             @Override
             public void onLoadMore() {
-                offset = offset + 10;
+                offset = offset + 20;
                 getData(offset);
             }
         });
         hotVarietyShowAdapter = new HotVarietyShowAdapter(hotVarietyShowBeanList, getContext());
+        hotVarietyShowAdapter.setOnItemClickListener(new HotVarietyShowAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), SearchMovieActivity.class);
+                intent.putExtra("movieName",hotVarietyShowBeanList.get(position).getTitle());
+                startActivity(intent);
+            }
+        });
         xRecyclerView.setAdapter(hotVarietyShowAdapter);
         //xRecyclerView.refresh();//没写完
     }
@@ -138,7 +148,7 @@ public class HotVarietyShowFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags=%E7%BB%BC%E8%89%BA&start=" + offset;
+                String url = "https://movie.douban.com/j/new_search_subjects?sort=U&range=0,10&tags=%E7%BB%BC%E8%89%BA&limit=20&start=" + offset;
                 OkHttpClient okHttpClient = new OkHttpClient();
                 final Request request = new Request.Builder()
                         .url(url)

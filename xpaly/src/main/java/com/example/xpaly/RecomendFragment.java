@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Button;
 
 import com.example.xpaly.com.xpaly.activity.SearchMovieActivity;
 import com.example.xpaly.com.xpaly.adapter.RVAdapter;
@@ -90,28 +91,30 @@ public class RecomendFragment extends Fragment {
         initView();
         return rootView;
     }
-public void  initView(){
-    FancyButton button = rootView.findViewById(R.id.recommend_searchButton);
-    //搜索按钮设置点击事件
-    button.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(getActivity(), SearchMovieActivity.class));
-        }
-    });
-    TabLayout tabLayout = rootView.findViewById(R.id.recommend_tabLayout);
-    ViewPager viewPager = rootView.findViewById(R.id.recommend_fragment_viewPage);
-    viewPager.setOffscreenPageLimit(4);
-    tabLayout.setupWithViewPager(viewPager);
-    List<Fragment> fragments = new ArrayList<>();
-    fragments.add(new PianDanFragment());
-    fragments.add(new HotTVFragment());
-    fragments.add(new HotMovieFragment());
-    fragments.add(new HotVarietyShowFragment());
-    fragments.add(new HotAnimeFragment());
 
-    viewPager.setAdapter(new RVAdapter(getFragmentManager(), 1, fragments));
-}
+    public void initView() {
+        Button button = rootView.findViewById(R.id.recommend_searchButton);
+        //搜索按钮设置点击事件
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SearchMovieActivity.class));
+            }
+        });
+        TabLayout tabLayout = rootView.findViewById(R.id.recommend_tabLayout);
+        ViewPager viewPager = rootView.findViewById(R.id.recommend_fragment_viewPage);
+        viewPager.setOffscreenPageLimit(4);
+        tabLayout.setupWithViewPager(viewPager);
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new PianDanFragment());
+        fragments.add(new HotTVFragment());
+        fragments.add(new HotMovieFragment());
+        fragments.add(new HotVarietyShowFragment());
+        fragments.add(new HotAnimeFragment());
+
+        viewPager.setAdapter(new RVAdapter(getFragmentManager(), 1, fragments));
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

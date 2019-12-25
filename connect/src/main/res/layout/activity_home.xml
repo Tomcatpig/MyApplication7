@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <com.example.connect.com.example.ui.ItemSetting
+        android:id="@+id/itemSetting1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:imageSrc="@drawable/ic_chakan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textLeft="查看备份" />
+
+    <com.example.connect.com.example.ui.ItemSetting
+        android:id="@+id/itemSetting2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:imageSrc="@drawable/ic_beifenhuifu_jiaodian"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemSetting1"
+        app:isShowDividingLine="false"
+        app:textLeft="备份联系人" />
+
+    <com.example.connect.com.example.ui.ItemSetting
+        android:id="@+id/itemSetting3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:imageSrc="@drawable/ic_shoucang"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemSetting2"
+        app:textLeft="收藏" />
+
+    <com.example.connect.com.example.ui.ItemSetting
+        android:id="@+id/itemSetting4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:imageSrc="@drawable/ic_shanchu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemSetting3"
+        app:isShowDividingLine="false"
+        app:textLeft="删除记录" />
+
+    <com.example.connect.com.example.ui.ItemSetting
+        android:id="@+id/itemSetting5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:imageSrc="@drawable/ic_shezhi"
+        app:isShowDividingLine="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemSetting4"
+        app:textLeft="设置" />
+
+    <com.example.connect.com.example.ui.ItemSetting
+        android:id="@+id/itemSetting6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:imageSrc="@drawable/ic_guanyu"
+        app:isShowDividingLine="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemSetting5"
+        app:textLeft="关于" />
+
+    <com.example.connect.com.example.ui.ItemSetting
+        android:id="@+id/itemSetting7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:imageSrc="@drawable/ic_tuichu"
+        app:isShowDividingLine="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemSetting6"
+        app:textLeft="退出登录" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

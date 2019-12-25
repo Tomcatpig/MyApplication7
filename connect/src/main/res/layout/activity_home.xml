@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:textLeft="查看备份" />
+        app:textLeft="查看联系人" />
 
     <com.example.connect.com.example.ui.ItemSetting
         android:id="@+id/itemSetting2"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemSetting1"
         app:isShowDividingLine="false"
-        app:textLeft="备份联系人" />
+        app:textLeft="备份和恢复联系人" />
 
     <com.example.connect.com.example.ui.ItemSetting
         android:id="@+id/itemSetting3"
@@ -48,7 +48,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemSetting3"
         app:isShowDividingLine="false"
-        app:textLeft="删除记录" />
+        app:textLeft="删除记录"
+        app:textRight="恢复删除"
+        />
 
     <com.example.connect.com.example.ui.ItemSetting
         android:id="@+id/itemSetting5"

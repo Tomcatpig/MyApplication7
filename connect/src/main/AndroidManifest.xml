@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.connect">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".AboutActivity"
+            android:label="关于本软件"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="设置" />
+        <activity
+            android:name=".DeleteRecordingActivity"
+            android:label="删除与恢复" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:label="收藏" />
+        <activity android:name=".WatchLinkActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
